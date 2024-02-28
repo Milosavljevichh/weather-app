@@ -1,0 +1,170 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: nunito;
+}
+
+@font-face {
+    font-family: nunito;
+    src: url(../fonts/Nunito/Nunito-VariableFont_wght.ttf);
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(133deg, rgba(111,54,185,1) 0%, rgba(81,34,142,1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    #container {
+        height: 70%;
+        padding: 0 6%;
+        background: linear-gradient(133deg, rgba(32,54,135,1) 0%, rgba(25,38,85,1) 100%);
+        border-radius: 50px;
+        display: flex;
+        gap: 30px;
+        flex-direction: column;
+        justify-content: space-between;
+        color: #F9F6EE;
+        #header {
+            margin: 6% 0 2.5% 0;
+            height: 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 5%;
+            #icons {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 16px;
+                width: 33%;
+            }
+            #location {
+                text-align: center;
+                width: 33%;
+                #main-loc {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                #country {
+                    color: #ffffff9f;
+                }
+            }
+            #search {
+                width: 33%;
+                height: 2rem;
+                font-size: 1.2rem;
+                padding: 0 5%;
+                background-image: url(../imgs/magnifier.png);
+                background-repeat: no-repeat;
+                background-size: 16px;
+                background-position: 5%;
+                border-radius: 12px;
+                border: 3px #fff solid;
+                color: #fff;
+                background-color: transparent;
+            }
+            .hed-ico {
+                width: 38px;
+            }
+        }
+
+        #main {
+            margin-bottom: 6%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5%;
+            .card {
+                position: relative;
+                padding: 4.5% 2.5%;
+                width: 36%;
+                background: linear-gradient(133deg, rgba(127,176,233,1) 0%, rgba(56,118,191,1) 60%);
+                border-radius: 30px;
+                #card-top {
+                    margin-bottom: 80px;
+                    display: flex;
+                    gap: 16px;
+                    align-items: center;
+                    justify-content: space-between;
+                    #top-left {
+                        width: 49%;
+                        text-align: center;
+                        #temp {
+                            font-size: 4rem;
+                        }
+                        #feel-like {
+                            font-size: 1.15rem;
+                        }
+                    }
+                    #top-right {
+                        width: 49%;
+                        img {
+                            margin: 0 auto;
+                            width: 80%;
+                        }
+                    }
+                }
+                #card-bottom {
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: space-between;
+                    .info-section {
+                        text-align: center;
+                        img {
+                            width: 32px;
+                        }
+                        h3 {
+                            font-weight: 700;
+                            font-size: 1.2rem;
+                        }
+                        p {
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+            }
+            .side {
+                width: 25%;
+                #card-top {
+                    margin-bottom: 50px;
+                    #top-left{
+                        #temp {
+                            font-size: 2.8rem;
+                        }
+                        #feel-like {
+                            font-size: 0.72rem;
+                        }
+                    }
+                }
+                #card-bottom {
+                    .info-section {
+                        img {
+                            width: 22px;
+                        }
+                        h3 {
+                            font-size: 1rem;
+                        }
+                        p {
+                            font-size: 0.7rem;
+                        }
+                    }
+                }
+            }
+            .side::before {
+                content: "";
+                position: absolute;
+                border-radius: 30px;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #20202096;
+                opacity: .7;
+            }
+        }
+    }
+}

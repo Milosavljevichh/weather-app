@@ -1,4 +1,4 @@
-# weather-app
+# Weather App basic info
 **Workflow:**
 -	Design the project (figma)
 -	Set up static html and the link to js and css files
