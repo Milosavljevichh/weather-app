@@ -53,22 +53,44 @@ body {
                     color: #ffffff9f;
                 }
             }
-            #search {
+            #searchDiv{
                 width: 33%;
-                height: 2rem;
-                font-size: 1.2rem;
-                padding: 0 5%;
-                background-image: url(../imgs/magnifier.png);
-                background-repeat: no-repeat;
-                background-size: 16px;
-                background-position: 5%;
-                border-radius: 12px;
-                border: 3px #fff solid;
-                color: #fff;
-                background-color: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                #search {
+                    width: 75%;
+                    height: 2rem;
+                    font-size: 1.2rem;
+                    padding: 0 10%;
+                    background-image: url(../imgs/magnifier.png);
+                    background-repeat: no-repeat;
+                    background-size: 16px;
+                    background-position: 5%;
+                    border-radius: 12px;
+                    border: 3px #fff solid;
+                    color: #fff;
+                    background-color: transparent;
+                }
+                #btnSearch {
+                    width: 20%;
+                    height: 2rem;
+                    font-size: 0.8rem;
+                    border-radius: 12px;
+                    border: 3px #fff solid;
+                    color: #fff;
+                    background-color: transparent;
+                    transition: all 0.4s;
+                }
+                #btnSearch:hover {
+                    cursor: pointer;
+                    background: #F9F6EE;
+                    color: #000;
+                    font-weight: bold;
+                }
             }
             .hed-ico {
-                width: 38px;
+                width: 35px;
             }
         }
 

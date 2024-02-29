@@ -55,11 +55,17 @@ body #container #header #location #main-loc {
 body #container #header #location #country {
   color: rgba(255, 255, 255, 0.6235294118);
 }
-body #container #header #search {
+body #container #header #searchDiv {
   width: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body #container #header #searchDiv #search {
+  width: 75%;
   height: 2rem;
   font-size: 1.2rem;
-  padding: 0 5%;
+  padding: 0 10%;
   background-image: url(../imgs/magnifier.png);
   background-repeat: no-repeat;
   background-size: 16px;
@@ -69,8 +75,24 @@ body #container #header #search {
   color: #fff;
   background-color: transparent;
 }
+body #container #header #searchDiv #btnSearch {
+  width: 20%;
+  height: 2rem;
+  font-size: 0.8rem;
+  border-radius: 12px;
+  border: 3px #fff solid;
+  color: #fff;
+  background-color: transparent;
+  transition: all 0.4s;
+}
+body #container #header #searchDiv #btnSearch:hover {
+  cursor: pointer;
+  background: #F9F6EE;
+  color: #000;
+  font-weight: bold;
+}
 body #container #header .hed-ico {
-  width: 38px;
+  width: 35px;
 }
 body #container #main {
   margin-bottom: 6%;
