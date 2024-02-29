@@ -1,9 +1,13 @@
 
+const searchBtn = document.getElementById('btnSearch');
+const searchInput = document.getElementById('search');
+
 let fetchLocationInfo = async()=> {
-    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=4a601696b76c403da0d130526242602&q=NY`, {mode:'cors'});
-    const infoJson = await response.json();
-    //returned 2 objects, location and current, both containing their own info
-    return infoJson;
+        let searchValue = searchInput.value;
+        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=4a601696b76c403da0d130526242602&q=${searchValue}`, {mode:'cors'});
+        const infoJson = await response.json();
+        //returned 2 objects, location and current, both containing their own info
+        return infoJson;
 };
 
 
@@ -78,35 +82,43 @@ switch (code) {
         break;
     
 }
-}
-
+};
 
 function displayTodaysWeather(){
     let card = document.getElementById('main-card');
     fetchLocationInfo().then((result)=>{
 
-        console.log(result)
-        //display location info in header
-        displayLocation(result.location.name, result.location.country);
-        //display card info
-        let todayTempLabel = card.querySelector('.temp');
-        let todayFeelsLike = card.querySelector('.feel-like');
-
-        let humidity = card.querySelector('#humidity');
-        let wind = card.querySelector('#wind');
-        let date = card.querySelector('#date');
-        let img = card.querySelector('#weather-img');
+        if (!result.error) {
+            //display location info in header
+            displayLocation(result.location.name, result.location.country);
+            //display card info
+            let todayTempLabel = card.querySelector('.temp');
+            let todayFeelsLike = card.querySelector('.feel-like');
     
-        todayTempLabel.innerHTML = `${result.current.temp_c}°C`;
-        todayFeelsLike.innerHTML = `${result.current.feelslike_c}°C`;
-
-        humidity.innerHTML = result.current.humidity + '%';
-        wind.innerHTML = result.current.wind_kph + 'Km/h';
-        date.innerHTML = (result.location.localtime).substr(8, 2) + '.';
-
-        handleWeatherIcon(img, result.current.condition.code);
+            let humidity = card.querySelector('#humidity');
+            let wind = card.querySelector('#wind');
+            let date = card.querySelector('#date');
+            let img = card.querySelector('#weather-img');
+        
+            todayTempLabel.innerHTML = `${result.current.temp_c}°C`;
+            todayFeelsLike.innerHTML = `${result.current.feelslike_c}°C`;
+    
+            humidity.innerHTML = result.current.humidity + '%';
+            wind.innerHTML = result.current.wind_kph + 'Km/h';
+            date.innerHTML = (result.location.localtime).substr(8, 2) + '.';
+    
+            handleWeatherIcon(img, result.current.condition.code);
+            if (searchInput.placeholder === 'No location found') {
+                searchInput.placeholder = 'Search';
+            }
+        } else if(result.error){
+            searchInput.value = '';
+            searchInput.placeholder = 'No location found';
+        }
         
     })
-}
+};
 
-displayTodaysWeather();
+searchBtn.addEventListener('click', ()=>{
+    displayTodaysWeather();
+});

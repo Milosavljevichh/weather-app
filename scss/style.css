@@ -65,7 +65,7 @@ body #container #header #searchDiv #search {
   width: 75%;
   height: 2rem;
   font-size: 1.2rem;
-  padding: 0 10%;
+  padding: 0 0 0 10%;
   background-image: url(../imgs/magnifier.png);
   background-repeat: no-repeat;
   background-size: 16px;
@@ -142,6 +142,7 @@ body #container #main .card #card-bottom {
   justify-content: space-between;
 }
 body #container #main .card #card-bottom .info-section {
+  width: 33%;
   text-align: center;
 }
 body #container #main .card #card-bottom .info-section img {

@@ -11,6 +11,9 @@
 > [!NOTE]
 > Limit: Weather API will limit your forecast data to 3 days
 
+**Design concept**
+![alt text](imgs/design.png)
+
 **Use:**
 -	Weather api
 -	Async/await
