@@ -20,6 +20,7 @@ body #container {
   height: 70%;
   padding: 0 6%;
   background: linear-gradient(133deg, rgb(32, 54, 135) 0%, rgb(25, 38, 85) 100%);
+  box-shadow: 0px 10px 20px rgba(17, 17, 17, 0.6588235294);
   border-radius: 50px;
   display: flex;
   gap: 30px;
@@ -84,6 +85,7 @@ body #container #main .card {
   padding: 4.5% 2.5%;
   width: 36%;
   background: linear-gradient(133deg, rgb(127, 176, 233) 0%, rgb(56, 118, 191) 60%);
+  box-shadow: 0px 10px 20px rgba(17, 17, 17, 0.6588235294);
   border-radius: 30px;
 }
 body #container #main .card #card-top {
@@ -97,14 +99,16 @@ body #container #main .card #card-top #top-left {
   width: 49%;
   text-align: center;
 }
-body #container #main .card #card-top #top-left #temp {
+body #container #main .card #card-top #top-left .temp {
   font-size: 4rem;
 }
-body #container #main .card #card-top #top-left #feel-like {
+body #container #main .card #card-top #top-left .feel-like {
   font-size: 1.15rem;
 }
 body #container #main .card #card-top #top-right {
   width: 49%;
+  display: flex;
+  justify-content: flex-end;
 }
 body #container #main .card #card-top #top-right img {
   margin: 0 auto;
@@ -134,10 +138,10 @@ body #container #main .side {
 body #container #main .side #card-top {
   margin-bottom: 50px;
 }
-body #container #main .side #card-top #top-left #temp {
+body #container #main .side #card-top #top-left .temp {
   font-size: 2.8rem;
 }
-body #container #main .side #card-top #top-left #feel-like {
+body #container #main .side #card-top #top-left .feel-like {
   font-size: 0.72rem;
 }
 body #container #main .side #card-bottom .info-section img {

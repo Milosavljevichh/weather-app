@@ -20,6 +20,7 @@ body {
         height: 70%;
         padding: 0 6%;
         background: linear-gradient(133deg, rgba(32,54,135,1) 0%, rgba(25,38,85,1) 100%);
+        box-shadow: -0px 10px 20px #111111a8;
         border-radius: 50px;
         display: flex;
         gap: 30px;
@@ -83,6 +84,7 @@ body {
                 padding: 4.5% 2.5%;
                 width: 36%;
                 background: linear-gradient(133deg, rgba(127,176,233,1) 0%, rgba(56,118,191,1) 60%);
+                box-shadow: -0px 10px 20px #111111a8;
                 border-radius: 30px;
                 #card-top {
                     margin-bottom: 80px;
@@ -93,15 +95,17 @@ body {
                     #top-left {
                         width: 49%;
                         text-align: center;
-                        #temp {
+                        .temp {
                             font-size: 4rem;
                         }
-                        #feel-like {
+                        .feel-like {
                             font-size: 1.15rem;
                         }
                     }
                     #top-right {
                         width: 49%;
+                        display: flex;
+                        justify-content: flex-end;
                         img {
                             margin: 0 auto;
                             width: 80%;
@@ -132,10 +136,10 @@ body {
                 #card-top {
                     margin-bottom: 50px;
                     #top-left{
-                        #temp {
+                        .temp {
                             font-size: 2.8rem;
                         }
-                        #feel-like {
+                        .feel-like {
                             font-size: 0.72rem;
                         }
                     }

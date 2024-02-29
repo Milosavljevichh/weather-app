@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forecast</title>
     <link rel="stylesheet" href="scss/style.css">
-    <script href="script.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <main>
@@ -29,12 +29,12 @@
             </div>
     
             <section id="main">
-                <article class="card side">
+                <article class="card side" id="yesterdayCard">
 
                     <div id="card-top">
                         <div id="top-left">
-                            <h1 id="temp">25°C</h1>
-                            <h3 id="feel-like">Feels like 22°C</h3>
+                            <h1 class="temp" id="yesterdayTemp">25°C</h1>
+                            <h3 class="feel-like" id="yesterdayFeelLike">Feels like 22°C</h3>
                         </div>
                         <div id="top-right">
                             <img src="imgs/sunny.png" alt="weather" id="weather-img">
@@ -64,8 +64,8 @@
 
                     <div id="card-top">
                         <div id="top-left">
-                            <h1 id="temp">25°C</h1>
-                            <h3 id="feel-like">Feels like 22°C</h3>
+                            <h1 class="temp" id="todayTemp">25°C</h1>
+                            <h3 class="feel-like" id="todayFeelLike">Feels like 22°C</h3>
                         </div>
                         <div id="top-right">
                             <img src="imgs/sunny.png" alt="weather" id="weather-img">
@@ -76,27 +76,27 @@
                         <div class="info-section">
                             <img src="imgs/humidity.png" alt="humidity" class="info-ico">
                             <h3 class="info-title">Humidity</h3>
-                            <p class="info-value">80%</p>
+                            <p class="info-value" id="humidity">80%</p>
                         </div>
                         <div class="info-section">
                             <img src="imgs/air.png" alt="humidity" class="info-ico">
                             <h3 class="info-title">Wind</h3>
-                            <p class="info-value">20Km/h</p>
+                            <p class="info-value" id="wind">20Km/h</p>
                         </div>
                         <div class="info-section">
                             <img src="imgs/date.png" alt="humidity" class="info-ico">
                             <h3 class="info-title">Day</h3>
-                            <p class="info-value">28.Feb</p>
+                            <p class="info-value" id="date">28.Feb</p>
                         </div>
 
                     </div>
                 </article>
-                <article class="card side">
+                <article class="card side" id="tomorrowCard">
 
                     <div id="card-top">
                         <div id="top-left">
-                            <h1 id="temp">25°C</h1>
-                            <h3 id="feel-like">Feels like 22°C</h3>
+                            <h1 class="temp" id="tomorrowTemp">25°C</h1>
+                            <h3 class="feel-like" id="tomorrowFeelLike">Feels like 22°C</h3>
                         </div>
                         <div id="top-right">
                             <img src="imgs/sunny.png" alt="weather" id="weather-img">
