@@ -121,18 +121,23 @@ function displayTodaysWeather(){
 
 let getTomorrowsInfo = async()=> {
     let searchValue = searchInput.value;
-    let date = new Date();
-    date.setDate(date.getDate() - 1);
     const response = await fetch (`http://api.weatherapi.com/v1/forecast.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&days=2&aqi=no&alerts=no`, {mode:'cors'})
     const infoJson = await response.json();
-    console.log(date)
     return infoJson;
 };
+
+let getYesterdayInfo = async()=>{
+    let searchValue = searchInput.value;
+    let date = new Date();
+    date.setDate(date.getDate() - 1);
+    const response = await fetch (`http://api.weatherapi.com/v1/history.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&dt=2024-02-29`, {mode:'cors'})
+    const infoJson = await response.json();
+    return infoJson;
+}
 
 function displayTomorrowsWeather(){
     let card = document.getElementById('tomorrowCard');
     getTomorrowsInfo().then((response)=>{
-        console.log(response.forecast.forecastday[1])
         if (!response.error) {
             //display card info
             let todayTempLabel = card.querySelector('.temp');
@@ -143,7 +148,7 @@ function displayTomorrowsWeather(){
             let date = card.querySelector('#date');
             let img = card.querySelector('#weather-img');
         
-            todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[1].day.avgtemp_c}°C`;
+            todayTempLabel.innerHTML = `${response.forecast.forecastday[1].day.avgtemp_c}°C`;
             todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[1].day.maxtemp_c}°C`;
     
             humidity.innerHTML = response.forecast.forecastday[1].day.avghumidity + '%';
@@ -162,11 +167,40 @@ function displayTomorrowsWeather(){
     })
 };
 
-function changeCardDisplays(){
-    displayTodaysWeather();
-    displayTomorrowsWeather();
-}
+function displayYesterdayWeather(){
+    let card = document.getElementById('yesterdayCard');
+    getYesterdayInfo().then((response)=>{
+        if (!response.error) {
+            //display card info
+            let todayTempLabel = card.querySelector('.temp');
+            let todayFeelsLike = card.querySelector('.feel-like');
+    
+            let humidity = card.querySelector('#humidity');
+            let wind = card.querySelector('#wind');
+            let date = card.querySelector('#date');
+            let img = card.querySelector('#weather-img');
+        
+            todayTempLabel.innerHTML = `${response.forecast.forecastday[0].day.avgtemp_c}°C`;   
+            todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[0].day.maxtemp_c}°C`;
+    
+            humidity.innerHTML = response.forecast.forecastday[0].day.avghumidity + '%';
+            wind.innerHTML = response.forecast.forecastday[0].day.maxwind_kph    + 'Km/h';
+            date.innerHTML = (response.forecast.forecastday[0].date).substr(8, 2) + '.';
+    
+            handleWeatherIcon(img, response.forecast.forecastday[0].day.condition.code);
+            if (searchInput.placeholder === 'No location found') {
+                searchInput.placeholder = 'Search';
+            };
+
+        } else if(result.error){
+            searchInput.value = '';
+            searchInput.placeholder = 'No location found';
+        }
+    })
+};
 
 searchBtn.addEventListener('click', ()=>{
-    changeCardDisplays();
+    displayTodaysWeather();
+    displayTomorrowsWeather();
+    displayYesterdayWeather();
 });
