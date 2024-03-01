@@ -119,7 +119,7 @@ function displayTodaysWeather(){
     })
 };
 
-let getYesterdaysInfo = async()=> {
+let getTomorrowsInfo = async()=> {
     let searchValue = searchInput.value;
     let date = new Date();
     date.setDate(date.getDate() - 1);
@@ -129,9 +129,9 @@ let getYesterdaysInfo = async()=> {
     return infoJson;
 };
 
-function displayYesterdaysWeather(){
+function displayTomorrowsWeather(){
     let card = document.getElementById('tomorrowCard');
-    getYesterdaysInfo().then((response)=>{
+    getTomorrowsInfo().then((response)=>{
         console.log(response.forecast.forecastday[1])
         if (!response.error) {
             //display card info
@@ -164,7 +164,7 @@ function displayYesterdaysWeather(){
 
 function changeCardDisplays(){
     displayTodaysWeather();
-    displayYesterdaysWeather();
+    displayTomorrowsWeather();
 }
 
 searchBtn.addEventListener('click', ()=>{
