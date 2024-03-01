@@ -147,8 +147,8 @@ function displayTomorrowsWeather(){
             todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[1].day.maxtemp_c}°C`;
     
             humidity.innerHTML = response.forecast.forecastday[1].day.avghumidity + '%';
-            // wind.innerHTML = result.current.wind_kph + 'Km/h';
-            // date.innerHTML = (result.location.localtime).substr(8, 2) + '.';
+            wind.innerHTML = response.forecast.forecastday[1].day.maxwind_kph    + 'Km/h';
+            date.innerHTML = (response.forecast.forecastday[1].date).substr(8, 2) + '.';
     
             handleWeatherIcon(img, response.forecast.forecastday[1].day.condition.code);
             if (searchInput.placeholder === 'No location found') {
