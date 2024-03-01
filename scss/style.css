@@ -122,7 +122,7 @@ body #container #main .card #card-top #top-left {
   text-align: center;
 }
 body #container #main .card #card-top #top-left .temp {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 body #container #main .card #card-top #top-left .feel-like {
   font-size: 1.15rem;
@@ -162,7 +162,7 @@ body #container #main .side #card-top {
   margin-bottom: 50px;
 }
 body #container #main .side #card-top #top-left .temp {
-  font-size: 2.8rem;
+  font-size: 1.8rem;
 }
 body #container #main .side #card-top #top-left .feel-like {
   font-size: 0.72rem;

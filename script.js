@@ -101,7 +101,7 @@ function displayTodaysWeather(){
             let img = card.querySelector('#weather-img');
         
             todayTempLabel.innerHTML = `${result.current.temp_c}°C`;
-            todayFeelsLike.innerHTML = `${result.current.feelslike_c}°C`;
+            todayFeelsLike.innerHTML = `Feels like ${result.current.feelslike_c}°C`;
     
             humidity.innerHTML = result.current.humidity + '%';
             wind.innerHTML = result.current.wind_kph + 'Km/h';
@@ -119,6 +119,54 @@ function displayTodaysWeather(){
     })
 };
 
-searchBtn.addEventListener('click', ()=>{
+let getYesterdaysInfo = async()=> {
+    let searchValue = searchInput.value;
+    let date = new Date();
+    date.setDate(date.getDate() - 1);
+    const response = await fetch (`http://api.weatherapi.com/v1/forecast.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&days=2&aqi=no&alerts=no`, {mode:'cors'})
+    const infoJson = await response.json();
+    console.log(date)
+    return infoJson;
+};
+
+function displayYesterdaysWeather(){
+    let card = document.getElementById('tomorrowCard');
+    getYesterdaysInfo().then((response)=>{
+        console.log(response.forecast.forecastday[1])
+        if (!response.error) {
+            //display card info
+            let todayTempLabel = card.querySelector('.temp');
+            let todayFeelsLike = card.querySelector('.feel-like');
+    
+            let humidity = card.querySelector('#humidity');
+            let wind = card.querySelector('#wind');
+            let date = card.querySelector('#date');
+            let img = card.querySelector('#weather-img');
+        
+            todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[1].day.avgtemp_c}°C`;
+            todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[1].day.maxtemp_c}°C`;
+    
+            humidity.innerHTML = response.forecast.forecastday[1].day.avghumidity + '%';
+            // wind.innerHTML = result.current.wind_kph + 'Km/h';
+            // date.innerHTML = (result.location.localtime).substr(8, 2) + '.';
+    
+            handleWeatherIcon(img, response.forecast.forecastday[1].day.condition.code);
+            if (searchInput.placeholder === 'No location found') {
+                searchInput.placeholder = 'Search';
+            };
+
+        } else if(result.error){
+            searchInput.value = '';
+            searchInput.placeholder = 'No location found';
+        }
+    })
+};
+
+function changeCardDisplays(){
     displayTodaysWeather();
+    displayYesterdaysWeather();
+}
+
+searchBtn.addEventListener('click', ()=>{
+    changeCardDisplays();
 });
