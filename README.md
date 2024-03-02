@@ -9,6 +9,7 @@
 -	(Bonus) Add ‘loading’ component that displays from the time the location is searched until the information comes back from the API (test for low-end devices with DevTools)
 - Add function which fetches tomorrow's weather info and display it ✅
 - Add function which fetches yesterday's weather info and display it ✅
+- Make it responsive
 
 > [!NOTE]
 > Limit: Weather API will limit your forecast data to 3 days

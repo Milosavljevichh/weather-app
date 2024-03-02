@@ -8,16 +8,17 @@
   font-family: nunito;
   src: url(../fonts/Nunito/Nunito-VariableFont_wght.ttf);
 }
-body {
+body, main {
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(133deg, rgb(111, 54, 185) 0%, rgb(81, 34, 142) 100%);
+  background: linear-gradient(133deg, #7C81AD 0%, rgba(81, 34, 142, 0.792) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-body #container {
-  height: 70%;
+body #container, main #container {
+  height: 90%;
+  width: 80%;
   padding: 0 6%;
   background: linear-gradient(133deg, rgb(32, 54, 135) 0%, rgb(25, 38, 85) 100%);
   box-shadow: 0px 10px 20px rgba(17, 17, 17, 0.6588235294);
@@ -28,7 +29,7 @@ body #container {
   justify-content: space-between;
   color: #F9F6EE;
 }
-body #container #header {
+body #container #header, main #container #header {
   margin: 6% 0 2.5% 0;
   height: 10%;
   display: flex;
@@ -36,32 +37,32 @@ body #container #header {
   align-items: flex-start;
   gap: 5%;
 }
-body #container #header #icons {
+body #container #header #icons, main #container #header #icons {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
   width: 33%;
 }
-body #container #header #location {
+body #container #header #location, main #container #header #location {
   text-align: center;
   width: 33%;
 }
-body #container #header #location #main-loc {
+body #container #header #location #main-loc, main #container #header #location #main-loc {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-body #container #header #location #country {
+body #container #header #location #country, main #container #header #location #country {
   color: rgba(255, 255, 255, 0.6235294118);
 }
-body #container #header #searchDiv {
+body #container #header #searchDiv, main #container #header #searchDiv {
   width: 33%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-body #container #header #searchDiv #search {
+body #container #header #searchDiv #search, main #container #header #searchDiv #search {
   width: 75%;
   height: 2rem;
   font-size: 1.2rem;
@@ -75,7 +76,7 @@ body #container #header #searchDiv #search {
   color: #fff;
   background-color: transparent;
 }
-body #container #header #searchDiv #btnSearch {
+body #container #header #searchDiv #btnSearch, main #container #header #searchDiv #btnSearch {
   width: 20%;
   height: 2rem;
   font-size: 0.8rem;
@@ -85,16 +86,16 @@ body #container #header #searchDiv #btnSearch {
   background-color: transparent;
   transition: all 0.4s;
 }
-body #container #header #searchDiv #btnSearch:hover {
+body #container #header #searchDiv #btnSearch:hover, main #container #header #searchDiv #btnSearch:hover {
   cursor: pointer;
   background: #F9F6EE;
   color: #000;
   font-weight: bold;
 }
-body #container #header .hed-ico {
+body #container #header .hed-ico, main #container #header .hed-ico {
   width: 35px;
 }
-body #container #main {
+body #container #main, main #container #main {
   margin-bottom: 6%;
   height: 60%;
   display: flex;
@@ -102,7 +103,7 @@ body #container #main {
   justify-content: space-between;
   gap: 5%;
 }
-body #container #main .card {
+body #container #main .card, main #container #main .card {
   position: relative;
   padding: 4.5% 2.5%;
   width: 36%;
@@ -110,73 +111,73 @@ body #container #main .card {
   box-shadow: 0px 10px 20px rgba(17, 17, 17, 0.6588235294);
   border-radius: 30px;
 }
-body #container #main .card #card-top {
+body #container #main .card #card-top, main #container #main .card #card-top {
   margin-bottom: 80px;
   display: flex;
   gap: 16px;
   align-items: center;
   justify-content: space-between;
 }
-body #container #main .card #card-top #top-left {
+body #container #main .card #card-top #top-left, main #container #main .card #card-top #top-left {
   width: 49%;
   text-align: center;
 }
-body #container #main .card #card-top #top-left .temp {
-  font-size: 3rem;
+body #container #main .card #card-top #top-left .temp, main #container #main .card #card-top #top-left .temp {
+  font-size: 3.2rem;
 }
-body #container #main .card #card-top #top-left .feel-like {
+body #container #main .card #card-top #top-left .feel-like, main #container #main .card #card-top #top-left .feel-like {
   font-size: 1.15rem;
 }
-body #container #main .card #card-top #top-right {
+body #container #main .card #card-top #top-right, main #container #main .card #card-top #top-right {
   width: 49%;
   display: flex;
   justify-content: flex-end;
 }
-body #container #main .card #card-top #top-right img {
+body #container #main .card #card-top #top-right img, main #container #main .card #card-top #top-right img {
   margin: 0 auto;
   width: 80%;
 }
-body #container #main .card #card-bottom {
+body #container #main .card #card-bottom, main #container #main .card #card-bottom {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 }
-body #container #main .card #card-bottom .info-section {
+body #container #main .card #card-bottom .info-section, main #container #main .card #card-bottom .info-section {
   width: 33%;
   text-align: center;
 }
-body #container #main .card #card-bottom .info-section img {
+body #container #main .card #card-bottom .info-section img, main #container #main .card #card-bottom .info-section img {
   width: 32px;
 }
-body #container #main .card #card-bottom .info-section h3 {
+body #container #main .card #card-bottom .info-section h3, main #container #main .card #card-bottom .info-section h3 {
   font-weight: 700;
   font-size: 1.2rem;
 }
-body #container #main .card #card-bottom .info-section p {
+body #container #main .card #card-bottom .info-section p, main #container #main .card #card-bottom .info-section p {
   font-size: 1.1rem;
 }
-body #container #main .side {
+body #container #main .side, main #container #main .side {
   width: 25%;
 }
-body #container #main .side #card-top {
+body #container #main .side #card-top, main #container #main .side #card-top {
   margin-bottom: 50px;
 }
-body #container #main .side #card-top #top-left .temp {
-  font-size: 1.8rem;
+body #container #main .side #card-top #top-left .temp, main #container #main .side #card-top #top-left .temp {
+  font-size: 1.4rem;
 }
-body #container #main .side #card-top #top-left .feel-like {
+body #container #main .side #card-top #top-left .feel-like, main #container #main .side #card-top #top-left .feel-like {
   font-size: 0.72rem;
 }
-body #container #main .side #card-bottom .info-section img {
+body #container #main .side #card-bottom .info-section img, main #container #main .side #card-bottom .info-section img {
   width: 22px;
 }
-body #container #main .side #card-bottom .info-section h3 {
+body #container #main .side #card-bottom .info-section h3, main #container #main .side #card-bottom .info-section h3 {
   font-size: 1rem;
 }
-body #container #main .side #card-bottom .info-section p {
+body #container #main .side #card-bottom .info-section p, main #container #main .side #card-bottom .info-section p {
   font-size: 0.7rem;
 }
-body #container #main .side::before {
+body #container #main .side::before, main #container #main .side::before {
   content: "";
   position: absolute;
   border-radius: 30px;

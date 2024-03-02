@@ -129,8 +129,18 @@ let getTomorrowsInfo = async()=> {
 let getYesterdayInfo = async()=>{
     let searchValue = searchInput.value;
     let date = new Date();
+    //converting mm dd yy format to yy mm dd
+    //getting only the month day and year
     date.setDate(date.getDate() - 1);
-    const response = await fetch (`http://api.weatherapi.com/v1/history.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&dt=2024-02-29`, {mode:'cors'})
+    let dateStr = date.toString().substr(4,11);
+    //making an array out of the date which contains values of year day and month
+    //and then changing the places of month and day
+    let output = dateStr.split(" ").reverse();
+    let day = output[1];
+    output[1] = output[2];
+    output[2] = day;
+    output = output.join("-");
+    const response = await fetch (`http://api.weatherapi.com/v1/history.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&dt=${output}`, {mode:'cors'})
     const infoJson = await response.json();
     return infoJson;
 }
@@ -148,7 +158,7 @@ function displayTomorrowsWeather(){
             let date = card.querySelector('#date');
             let img = card.querySelector('#weather-img');
         
-            todayTempLabel.innerHTML = `${response.forecast.forecastday[1].day.avgtemp_c}°C`;
+            todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[1].day.avgtemp_c}°C`;
             todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[1].day.maxtemp_c}°C`;
     
             humidity.innerHTML = response.forecast.forecastday[1].day.avghumidity + '%';
@@ -180,7 +190,7 @@ function displayYesterdayWeather(){
             let date = card.querySelector('#date');
             let img = card.querySelector('#weather-img');
         
-            todayTempLabel.innerHTML = `${response.forecast.forecastday[0].day.avgtemp_c}°C`;   
+            todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[0].day.avgtemp_c}°C`;   
             todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[0].day.maxtemp_c}°C`;
     
             humidity.innerHTML = response.forecast.forecastday[0].day.avghumidity + '%';
@@ -204,3 +214,13 @@ searchBtn.addEventListener('click', ()=>{
     displayTomorrowsWeather();
     displayYesterdayWeather();
 });
+
+function staticSearch() {
+    searchInput.value = "belgrade";    
+    displayTodaysWeather();
+    displayTomorrowsWeather();
+    displayYesterdayWeather();
+    searchInput.value = "";    
+};
+
+staticSearch()
