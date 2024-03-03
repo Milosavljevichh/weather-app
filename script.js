@@ -3,12 +3,11 @@ const searchBtn = document.getElementById('btnSearch');
 const searchInput = document.getElementById('search');
 const changeTempBtn = document.getElementById('tempBtn');
 
-let yesterdaysTemps = [];
-let todaysTemps = [];
-let tomorrowsTemps = [];
-
 let fahrenheitTemperature = [];
 let celsiusTemperature = [];
+
+let feelsLikeFahrenheit = [];
+let feelsLikeCelsius = [];
 
 let fetchLocationInfo = async()=> {
         let searchValue = searchInput.value;
@@ -136,6 +135,9 @@ function displayYesterdayWeather(){
             celsiusTemperature.push(response.forecast.forecastday[0].day.avgtemp_c);
             fahrenheitTemperature.push(response.forecast.forecastday[0].day.avgtemp_f);
 
+            feelsLikeFahrenheit.push(response.forecast.forecastday[0].day.maxtemp_f);
+            feelsLikeCelsius.push(response.forecast.forecastday[0].day.maxtemp_c);
+
             humidity.innerHTML = response.forecast.forecastday[0].day.avghumidity + '%';
             wind.innerHTML = response.forecast.forecastday[0].day.maxwind_kph    + 'Km/h';
             date.innerHTML = (response.forecast.forecastday[0].date).substr(8, 2) + '.';
@@ -173,6 +175,9 @@ function displayTodaysWeather(){
 
             celsiusTemperature.push(result.current.temp_c);
             fahrenheitTemperature.push(result.current.temp_f);
+
+            feelsLikeFahrenheit.push(result.current.feelslike_f);
+            feelsLikeCelsius.push(result.current.feelslike_c);
     
             humidity.innerHTML = result.current.humidity + '%';
             wind.innerHTML = result.current.wind_kph + 'Km/h';
@@ -208,6 +213,9 @@ function displayTomorrowsWeather(){
             
             celsiusTemperature.push(response.forecast.forecastday[1].day.avgtemp_c);
             fahrenheitTemperature.push(response.forecast.forecastday[1].day.avgtemp_f);
+
+            feelsLikeFahrenheit.push(response.forecast.forecastday[1].day.maxtemp_f);
+            feelsLikeCelsius.push(response.forecast.forecastday[1].day.maxtemp_c)
     
             humidity.innerHTML = response.forecast.forecastday[1].day.avghumidity + '%';
             wind.innerHTML = response.forecast.forecastday[1].day.maxwind_kph    + 'Km/h';
@@ -225,39 +233,48 @@ function displayTomorrowsWeather(){
     })
 };
 
-searchBtn.addEventListener('click', ()=>{
+function emptyArrays() {
     for (let i = 0; i <= fahrenheitTemperature.length+1; i++){
         fahrenheitTemperature.pop();
-    };
-    for (let i = 0; i <= celsiusTemperature.length+1; i++){
         celsiusTemperature.pop();
-    };
+        feelsLikeCelsius.pop();
+        feelsLikeFahrenheit.pop();
+    }
+};
+
+searchBtn.addEventListener('click', ()=>{
+    emptyArrays();
     displayYesterdayWeather();
     displayTodaysWeather();
     displayTomorrowsWeather();
 });
 
 changeTempBtn.addEventListener('click', ()=>{
-    console.log(fahrenheitTemperature)
-    console.log(celsiusTemperature)
     if(changeTempBtn.innerHTML === '°F') {
         changeTempBtn.innerHTML = '°C';
         let tempDisplays = document.querySelectorAll('.temp');
+        let feelLikes = document.querySelectorAll('.feel-like');
+        console.log(feelLikes)
         for (let i=0; i<tempDisplays.length;i++){
             if (i!==1) {
                 tempDisplays[i].innerHTML = 'Avg ' + fahrenheitTemperature[i] + '°F';
+                feelLikes[i].innerHTML = 'Max '+feelsLikeFahrenheit[i] + '°F';
             } else {
                 tempDisplays[i].innerHTML = fahrenheitTemperature[i] + '°F';
+                feelLikes[i].innerHTML = 'Feels like ' + feelsLikeFahrenheit[i] + '°F';
             }
         };
     } else if (changeTempBtn.innerHTML === '°C') {
         changeTempBtn.innerHTML = '°F';
         let tempDisplays = document.querySelectorAll('.temp');
+        let feelLikes = document.querySelectorAll('.feel-like');
         for (let i=0; i<tempDisplays.length;i++){
             if (i!==1) {
-                tempDisplays[i].innerHTML = 'Avg ' + fahrenheitTemperature[i] + '°C';
+                tempDisplays[i].innerHTML = 'Avg ' + celsiusTemperature[i] + '°C';
+                feelLikes[i].innerHTML = 'Max ' + feelsLikeCelsius[i] + '°C';
             } else {
                 tempDisplays[i].innerHTML = celsiusTemperature[i] + '°C';
+                feelLikes[i].innerHTML = 'Feels like ' + feelsLikeCelsius[i] + '°C';
             }
         };
     }
