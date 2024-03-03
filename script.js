@@ -244,13 +244,21 @@ changeTempBtn.addEventListener('click', ()=>{
         changeTempBtn.innerHTML = '°C';
         let tempDisplays = document.querySelectorAll('.temp');
         for (let i=0; i<tempDisplays.length;i++){
-            tempDisplays[i].innerHTML = fahrenheitTemperature[i] + '°F';
+            if (i!==1) {
+                tempDisplays[i].innerHTML = 'Avg ' + fahrenheitTemperature[i] + '°F';
+            } else {
+                tempDisplays[i].innerHTML = fahrenheitTemperature[i] + '°F';
+            }
         };
     } else if (changeTempBtn.innerHTML === '°C') {
         changeTempBtn.innerHTML = '°F';
         let tempDisplays = document.querySelectorAll('.temp');
         for (let i=0; i<tempDisplays.length;i++){
-            tempDisplays[i].innerHTML = celsiusTemperature[i] + '°C';
+            if (i!==1) {
+                tempDisplays[i].innerHTML = 'Avg ' + fahrenheitTemperature[i] + '°C';
+            } else {
+                tempDisplays[i].innerHTML = celsiusTemperature[i] + '°C';
+            }
         };
     }
 });
