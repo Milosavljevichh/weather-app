@@ -2,6 +2,8 @@
 const searchBtn = document.getElementById('btnSearch');
 const searchInput = document.getElementById('search');
 const changeTempBtn = document.getElementById('tempBtn');
+const container = document.getElementById('container');
+const loading = document.getElementById('loading');
 
 let fahrenheitTemperature = [];
 let celsiusTemperature = [];
@@ -14,6 +16,8 @@ let mph = [];
 
 let fetchLocationInfo = async()=> {
         let searchValue = searchInput.value;
+        container.style.display = 'none';
+        loading.style.display = 'block';
         const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=4a601696b76c403da0d130526242602&q=${searchValue}`, {mode:'cors'});
         const infoJson = await response.json();
         //returned 2 objects, location and current, both containing their own info
@@ -24,6 +28,8 @@ let getTomorrowsInfo = async()=> {
     let searchValue = searchInput.value;
     const response = await fetch (`http://api.weatherapi.com/v1/forecast.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&days=2&aqi=no&alerts=no`, {mode:'cors'})
     const infoJson = await response.json();
+    container.style.display = 'flex';
+    loading.style.display = 'none';
     return infoJson;
 };
 
@@ -251,6 +257,8 @@ function emptyArrays() {
         celsiusTemperature.pop();
         feelsLikeCelsius.pop();
         feelsLikeFahrenheit.pop();
+        kph.pop();
+        mph.pop();
     }
 };
 
@@ -266,29 +274,33 @@ changeTempBtn.addEventListener('click', ()=>{
     let feelLikes = document.querySelectorAll('.feel-like');
     let winds = document.querySelectorAll('#wind');
     if(changeTempBtn.innerHTML === '°F') {
-        changeTempBtn.innerHTML = '°C';
-        for (let i=0; i<tempDisplays.length;i++){
-            winds[i].innerHTML = mph[i] + 'Mp/h'
-            if (i!==1) {
-                tempDisplays[i].innerHTML = 'Avg ' + fahrenheitTemperature[i] + '°F';
-                feelLikes[i].innerHTML = 'Max '+feelsLikeFahrenheit[i] + '°F';
-            } else {
-                tempDisplays[i].innerHTML = fahrenheitTemperature[i] + '°F';
-                feelLikes[i].innerHTML = 'Feels like ' + feelsLikeFahrenheit[i] + '°F';
+        if (fahrenheitTemperature.length !== 0) {
+            changeTempBtn.innerHTML = '°C';
+            for (let i=0; i<tempDisplays.length;i++){
+                winds[i].innerHTML = mph[i] + 'Mp/h'
+                if (i!==1) {
+                    tempDisplays[i].innerHTML = 'Avg ' + fahrenheitTemperature[i] + '°F';
+                    feelLikes[i].innerHTML = 'Max '+feelsLikeFahrenheit[i] + '°F';
+                } else {
+                    tempDisplays[i].innerHTML = fahrenheitTemperature[i] + '°F';
+                    feelLikes[i].innerHTML = 'Feels like ' + feelsLikeFahrenheit[i] + '°F';
+                }
             }
-        };
+        }
     } else if (changeTempBtn.innerHTML === '°C') {
-        changeTempBtn.innerHTML = '°F';
-        for (let i=0; i<tempDisplays.length;i++){
-            winds[i].innerHTML = kph[i] + 'Km/h';
-            if (i!==1) {
-                tempDisplays[i].innerHTML = 'Avg ' + celsiusTemperature[i] + '°C';
-                feelLikes[i].innerHTML = 'Max ' + feelsLikeCelsius[i] + '°C';
-            } else {
-                tempDisplays[i].innerHTML = celsiusTemperature[i] + '°C';
-                feelLikes[i].innerHTML = 'Feels like ' + feelsLikeCelsius[i] + '°C';
+        if (fahrenheitTemperature.length !== 0) {
+            changeTempBtn.innerHTML = '°F';
+            for (let i=0; i<tempDisplays.length;i++){
+                winds[i].innerHTML = kph[i] + 'Km/h';
+                if (i!==1) {
+                    tempDisplays[i].innerHTML = 'Avg ' + celsiusTemperature[i] + '°C';
+                    feelLikes[i].innerHTML = 'Max ' + feelsLikeCelsius[i] + '°C';
+                } else {
+                    tempDisplays[i].innerHTML = celsiusTemperature[i] + '°C';
+                    feelLikes[i].innerHTML = 'Feels like ' + feelsLikeCelsius[i] + '°C';
+                }
             }
-        };
+        }
     }
 });
 

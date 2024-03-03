@@ -16,6 +16,10 @@ body,main {
     display: flex;
     align-items: center;
     justify-content: center;
+    #loading{
+        scale: 0.4;
+        display: none;
+    }
     #container {
         height: 90%;
         width: 80%;
