@@ -9,6 +9,9 @@ let celsiusTemperature = [];
 let feelsLikeFahrenheit = [];
 let feelsLikeCelsius = [];
 
+let kph = [];
+let mph = [];
+
 let fetchLocationInfo = async()=> {
         let searchValue = searchInput.value;
         const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=4a601696b76c403da0d130526242602&q=${searchValue}`, {mode:'cors'});
@@ -141,6 +144,9 @@ function displayYesterdayWeather(){
             humidity.innerHTML = response.forecast.forecastday[0].day.avghumidity + '%';
             wind.innerHTML = response.forecast.forecastday[0].day.maxwind_kph    + 'Km/h';
             date.innerHTML = (response.forecast.forecastday[0].date).substr(8, 2) + '.';
+
+            kph.push(response.forecast.forecastday[0].day.maxwind_kph);
+            mph.push(response.forecast.forecastday[0].day.maxwind_mph);
     
             handleWeatherIcon(img, response.forecast.forecastday[0].day.condition.code);
             if (searchInput.placeholder === 'No location found') {
@@ -182,6 +188,9 @@ function displayTodaysWeather(){
             humidity.innerHTML = result.current.humidity + '%';
             wind.innerHTML = result.current.wind_kph + 'Km/h';
             date.innerHTML = (result.location.localtime).substr(8, 2) + '.';
+
+            kph.push(result.current.wind_kph);
+            mph.push(result.current.wind_mph);
     
             handleWeatherIcon(img, result.current.condition.code);
             if (searchInput.placeholder === 'No location found') {
@@ -215,11 +224,14 @@ function displayTomorrowsWeather(){
             fahrenheitTemperature.push(response.forecast.forecastday[1].day.avgtemp_f);
 
             feelsLikeFahrenheit.push(response.forecast.forecastday[1].day.maxtemp_f);
-            feelsLikeCelsius.push(response.forecast.forecastday[1].day.maxtemp_c)
+            feelsLikeCelsius.push(response.forecast.forecastday[1].day.maxtemp_c);
     
             humidity.innerHTML = response.forecast.forecastday[1].day.avghumidity + '%';
             wind.innerHTML = response.forecast.forecastday[1].day.maxwind_kph    + 'Km/h';
             date.innerHTML = (response.forecast.forecastday[1].date).substr(8, 2) + '.';
+
+            kph.push(response.forecast.forecastday[1].day.maxwind_kph);
+            mph.push(response.forecast.forecastday[1].day.maxwind_mph);
     
             handleWeatherIcon(img, response.forecast.forecastday[1].day.condition.code);
             if (searchInput.placeholder === 'No location found') {
@@ -250,12 +262,13 @@ searchBtn.addEventListener('click', ()=>{
 });
 
 changeTempBtn.addEventListener('click', ()=>{
+    let tempDisplays = document.querySelectorAll('.temp');
+    let feelLikes = document.querySelectorAll('.feel-like');
+    let winds = document.querySelectorAll('#wind');
     if(changeTempBtn.innerHTML === '°F') {
         changeTempBtn.innerHTML = '°C';
-        let tempDisplays = document.querySelectorAll('.temp');
-        let feelLikes = document.querySelectorAll('.feel-like');
-        console.log(feelLikes)
         for (let i=0; i<tempDisplays.length;i++){
+            winds[i].innerHTML = mph[i] + 'Mp/h'
             if (i!==1) {
                 tempDisplays[i].innerHTML = 'Avg ' + fahrenheitTemperature[i] + '°F';
                 feelLikes[i].innerHTML = 'Max '+feelsLikeFahrenheit[i] + '°F';
@@ -266,9 +279,8 @@ changeTempBtn.addEventListener('click', ()=>{
         };
     } else if (changeTempBtn.innerHTML === '°C') {
         changeTempBtn.innerHTML = '°F';
-        let tempDisplays = document.querySelectorAll('.temp');
-        let feelLikes = document.querySelectorAll('.feel-like');
         for (let i=0; i<tempDisplays.length;i++){
+            winds[i].innerHTML = kph[i] + 'Km/h';
             if (i!==1) {
                 tempDisplays[i].innerHTML = 'Avg ' + celsiusTemperature[i] + '°C';
                 feelLikes[i].innerHTML = 'Max ' + feelsLikeCelsius[i] + '°C';
