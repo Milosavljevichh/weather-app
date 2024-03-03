@@ -10,6 +10,7 @@
 - Add function which fetches tomorrow's weather info and display it ✅
 - Add function which fetches yesterday's weather info and display it ✅
 - Make it responsive
+- Add a button which changes Celsius to Fahrenheit (and km/h to mp/h)
 
 > [!NOTE]
 > Limit: Weather API will limit your forecast data to 3 days

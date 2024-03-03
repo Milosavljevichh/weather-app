@@ -1,6 +1,14 @@
 
 const searchBtn = document.getElementById('btnSearch');
 const searchInput = document.getElementById('search');
+const changeTempBtn = document.getElementById('tempBtn');
+
+let yesterdaysTemps = [];
+let todaysTemps = [];
+let tomorrowsTemps = [];
+
+let fahrenheitTemperature = [];
+let celsiusTemperature = [];
 
 let fetchLocationInfo = async()=> {
         let searchValue = searchInput.value;
@@ -10,6 +18,31 @@ let fetchLocationInfo = async()=> {
         return infoJson;
 };
 
+let getTomorrowsInfo = async()=> {
+    let searchValue = searchInput.value;
+    const response = await fetch (`http://api.weatherapi.com/v1/forecast.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&days=2&aqi=no&alerts=no`, {mode:'cors'})
+    const infoJson = await response.json();
+    return infoJson;
+};
+
+let getYesterdayInfo = async()=>{
+    let searchValue = searchInput.value;
+    let date = new Date();
+    //converting mm dd yy format to yy mm dd
+    //getting only the month day and year
+    date.setDate(date.getDate() - 1);
+    let dateStr = date.toString().substr(4,11);
+    //making an array out of the date which contains values of year day and month
+    //and then changing the places of month and day
+    let output = dateStr.split(" ").reverse();
+    let day = output[1];
+    output[1] = output[2];
+    output[2] = day;
+    output = output.join("-");
+    const response = await fetch (`http://api.weatherapi.com/v1/history.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&dt=${output}`, {mode:'cors'})
+    const infoJson = await response.json();
+    return infoJson;
+};
 
 function displayLocation(city, country) {
     let cityTitle = document.getElementById('city');
@@ -28,7 +61,7 @@ switch (code) {
         break;
     case 1006:
     case 1009:
-        img.src = 'imgs/cloudy.png'
+        img.src = 'imgs/partially-sunny.png'
         break;
     case 1147:
     case 1135:
@@ -84,6 +117,41 @@ switch (code) {
 }
 };
 
+function displayYesterdayWeather(){
+    let card = document.getElementById('yesterdayCard');
+    getYesterdayInfo().then((response)=>{
+        if (!response.error) {
+            //display card info
+            let todayTempLabel = card.querySelector('.temp');
+            let todayFeelsLike = card.querySelector('.feel-like');
+    
+            let humidity = card.querySelector('#humidity');
+            let wind = card.querySelector('#wind');
+            let date = card.querySelector('#date');
+            let img = card.querySelector('#weather-img');
+        
+            todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[0].day.avgtemp_c}°C`;   
+            todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[0].day.maxtemp_c}°C`;
+    
+            celsiusTemperature.push(response.forecast.forecastday[0].day.avgtemp_c);
+            fahrenheitTemperature.push(response.forecast.forecastday[0].day.avgtemp_f);
+
+            humidity.innerHTML = response.forecast.forecastday[0].day.avghumidity + '%';
+            wind.innerHTML = response.forecast.forecastday[0].day.maxwind_kph    + 'Km/h';
+            date.innerHTML = (response.forecast.forecastday[0].date).substr(8, 2) + '.';
+    
+            handleWeatherIcon(img, response.forecast.forecastday[0].day.condition.code);
+            if (searchInput.placeholder === 'No location found') {
+                searchInput.placeholder = 'Search';
+            };
+
+        } else if(result.error){
+            searchInput.value = '';
+            searchInput.placeholder = 'No location found';
+        }
+    })
+};
+
 function displayTodaysWeather(){
     let card = document.getElementById('main-card');
     fetchLocationInfo().then((result)=>{
@@ -102,6 +170,9 @@ function displayTodaysWeather(){
         
             todayTempLabel.innerHTML = `${result.current.temp_c}°C`;
             todayFeelsLike.innerHTML = `Feels like ${result.current.feelslike_c}°C`;
+
+            celsiusTemperature.push(result.current.temp_c);
+            fahrenheitTemperature.push(result.current.temp_f);
     
             humidity.innerHTML = result.current.humidity + '%';
             wind.innerHTML = result.current.wind_kph + 'Km/h';
@@ -119,32 +190,6 @@ function displayTodaysWeather(){
     })
 };
 
-let getTomorrowsInfo = async()=> {
-    let searchValue = searchInput.value;
-    const response = await fetch (`http://api.weatherapi.com/v1/forecast.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&days=2&aqi=no&alerts=no`, {mode:'cors'})
-    const infoJson = await response.json();
-    return infoJson;
-};
-
-let getYesterdayInfo = async()=>{
-    let searchValue = searchInput.value;
-    let date = new Date();
-    //converting mm dd yy format to yy mm dd
-    //getting only the month day and year
-    date.setDate(date.getDate() - 1);
-    let dateStr = date.toString().substr(4,11);
-    //making an array out of the date which contains values of year day and month
-    //and then changing the places of month and day
-    let output = dateStr.split(" ").reverse();
-    let day = output[1];
-    output[1] = output[2];
-    output[2] = day;
-    output = output.join("-");
-    const response = await fetch (`http://api.weatherapi.com/v1/history.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&dt=${output}`, {mode:'cors'})
-    const infoJson = await response.json();
-    return infoJson;
-}
-
 function displayTomorrowsWeather(){
     let card = document.getElementById('tomorrowCard');
     getTomorrowsInfo().then((response)=>{
@@ -160,6 +205,9 @@ function displayTomorrowsWeather(){
         
             todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[1].day.avgtemp_c}°C`;
             todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[1].day.maxtemp_c}°C`;
+            
+            celsiusTemperature.push(response.forecast.forecastday[1].day.avgtemp_c);
+            fahrenheitTemperature.push(response.forecast.forecastday[1].day.avgtemp_f);
     
             humidity.innerHTML = response.forecast.forecastday[1].day.avghumidity + '%';
             wind.innerHTML = response.forecast.forecastday[1].day.maxwind_kph    + 'Km/h';
@@ -177,49 +225,41 @@ function displayTomorrowsWeather(){
     })
 };
 
-function displayYesterdayWeather(){
-    let card = document.getElementById('yesterdayCard');
-    getYesterdayInfo().then((response)=>{
-        if (!response.error) {
-            //display card info
-            let todayTempLabel = card.querySelector('.temp');
-            let todayFeelsLike = card.querySelector('.feel-like');
-    
-            let humidity = card.querySelector('#humidity');
-            let wind = card.querySelector('#wind');
-            let date = card.querySelector('#date');
-            let img = card.querySelector('#weather-img');
-        
-            todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[0].day.avgtemp_c}°C`;   
-            todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[0].day.maxtemp_c}°C`;
-    
-            humidity.innerHTML = response.forecast.forecastday[0].day.avghumidity + '%';
-            wind.innerHTML = response.forecast.forecastday[0].day.maxwind_kph    + 'Km/h';
-            date.innerHTML = (response.forecast.forecastday[0].date).substr(8, 2) + '.';
-    
-            handleWeatherIcon(img, response.forecast.forecastday[0].day.condition.code);
-            if (searchInput.placeholder === 'No location found') {
-                searchInput.placeholder = 'Search';
-            };
-
-        } else if(result.error){
-            searchInput.value = '';
-            searchInput.placeholder = 'No location found';
-        }
-    })
-};
-
 searchBtn.addEventListener('click', ()=>{
+    for (let i = 0; i <= fahrenheitTemperature.length+1; i++){
+        fahrenheitTemperature.pop();
+    };
+    for (let i = 0; i <= celsiusTemperature.length+1; i++){
+        celsiusTemperature.pop();
+    };
+    displayYesterdayWeather();
     displayTodaysWeather();
     displayTomorrowsWeather();
-    displayYesterdayWeather();
+});
+
+changeTempBtn.addEventListener('click', ()=>{
+    console.log(fahrenheitTemperature)
+    console.log(celsiusTemperature)
+    if(changeTempBtn.innerHTML === '°F') {
+        changeTempBtn.innerHTML = '°C';
+        let tempDisplays = document.querySelectorAll('.temp');
+        for (let i=0; i<tempDisplays.length;i++){
+            tempDisplays[i].innerHTML = fahrenheitTemperature[i] + '°F';
+        };
+    } else if (changeTempBtn.innerHTML === '°C') {
+        changeTempBtn.innerHTML = '°F';
+        let tempDisplays = document.querySelectorAll('.temp');
+        for (let i=0; i<tempDisplays.length;i++){
+            tempDisplays[i].innerHTML = celsiusTemperature[i] + '°C';
+        };
+    }
 });
 
 function staticSearch() {
     searchInput.value = "belgrade";    
+    displayYesterdayWeather();
     displayTodaysWeather();
     displayTomorrowsWeather();
-    displayYesterdayWeather();
     searchInput.value = "";    
 };
 
