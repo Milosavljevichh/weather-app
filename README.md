@@ -24,7 +24,7 @@
 
 **Must contain:**
 -	Displaying in Celsius and Fahrenheit
--	Change the pages look based on the data (bg color, image describing the weather)
+-	Change the pages look based on the data (image describing the weather)
 
 **Security:**
 -	Set your API keys on the server and never send them to the frontend In the first place 
