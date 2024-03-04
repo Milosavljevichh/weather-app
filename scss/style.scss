@@ -101,6 +101,9 @@ body,main {
                     color: #fff;
                     background-color: transparent;
                 }
+                #search::placeholder {
+                    color: #ffffff8b;
+                }
                 #btnSearch {
                     width: 20%;
                     height: 2rem;

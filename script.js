@@ -262,12 +262,20 @@ function emptyArrays() {
     }
 };
 
-searchBtn.addEventListener('click', ()=>{
+function fireSearchProcess(){
     emptyArrays();
     displayYesterdayWeather();
     displayTodaysWeather();
     displayTomorrowsWeather();
+};
+
+searchBtn.addEventListener('click', ()=>{
+    fireSearchProcess();
 });
+
+searchInput.addEventListener('search', ()=>{
+    fireSearchProcess();
+})
 
 changeTempBtn.addEventListener('click', ()=>{
     let tempDisplays = document.querySelectorAll('.temp');

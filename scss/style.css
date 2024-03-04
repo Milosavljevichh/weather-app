@@ -101,6 +101,12 @@ body #container #header #searchDiv #search, main #container #header #searchDiv #
   color: #fff;
   background-color: transparent;
 }
+body #container #header #searchDiv #search::-moz-placeholder, main #container #header #searchDiv #search::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5450980392);
+}
+body #container #header #searchDiv #search::placeholder, main #container #header #searchDiv #search::placeholder {
+  color: rgba(255, 255, 255, 0.5450980392);
+}
 body #container #header #searchDiv #btnSearch, main #container #header #searchDiv #btnSearch {
   width: 20%;
   height: 2rem;
