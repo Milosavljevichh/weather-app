@@ -9,7 +9,7 @@
 -	(Bonus) Add ‘loading’ component that displays from the time the location is searched until the information comes back from the API (test for low-end devices with DevTools)✅
 - Add function which fetches tomorrow's weather info and display it ✅
 - Add function which fetches yesterday's weather info and display it ✅
-- Make it responsive
+- Make it responsive ✅
 - Add a button which changes Celsius to Fahrenheit (and km/h to mp/h) ✅
 
 > [!NOTE]

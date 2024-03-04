@@ -16,6 +16,11 @@ body, main {
   align-items: center;
   justify-content: center;
 }
+@media (max-width: 726px) {
+  body, main {
+    height: auto;
+  }
+}
 body #loading, main #loading {
   scale: 0.4;
   display: none;
@@ -37,6 +42,21 @@ body #container, main #container {
   justify-content: space-between;
   color: #F9F6EE;
 }
+@media (max-width: 1024px) {
+  body #container, main #container {
+    padding: 0 2.5%;
+    height: 50%;
+    justify-content: center;
+  }
+}
+@media (max-width: 726px) {
+  body #container, main #container {
+    margin: 30px 0;
+    height: -moz-fit-content;
+    height: fit-content;
+    border-radius: 30px;
+  }
+}
 body #container #header, main #container #header {
   margin: 6% 0 2.5% 0;
   height: 10%;
@@ -45,12 +65,25 @@ body #container #header, main #container #header {
   align-items: flex-start;
   gap: 5%;
 }
+@media (max-width: 726px) {
+  body #container #header, main #container #header {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+}
 body #container #header #icons, main #container #header #icons {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
   width: 33%;
+}
+@media (max-width: 726px) {
+  body #container #header #icons, main #container #header #icons {
+    width: 90%;
+    justify-content: space-between;
+  }
 }
 body #container #header #icons #tempBtn, main #container #header #icons #tempBtn {
   width: 20%;
@@ -73,6 +106,12 @@ body #container #header #location, main #container #header #location {
   text-align: center;
   width: 33%;
 }
+@media (max-width: 726px) {
+  body #container #header #location, main #container #header #location {
+    width: 90%;
+    justify-content: space-between;
+  }
+}
 body #container #header #location #main-loc, main #container #header #location #main-loc {
   display: flex;
   align-items: center;
@@ -87,6 +126,12 @@ body #container #header #searchDiv, main #container #header #searchDiv {
   align-items: center;
   justify-content: space-between;
 }
+@media (max-width: 726px) {
+  body #container #header #searchDiv, main #container #header #searchDiv {
+    width: 90%;
+    justify-content: space-between;
+  }
+}
 body #container #header #searchDiv #search, main #container #header #searchDiv #search {
   width: 75%;
   height: 2rem;
@@ -100,6 +145,12 @@ body #container #header #searchDiv #search, main #container #header #searchDiv #
   border: 3px #fff solid;
   color: #fff;
   background-color: transparent;
+}
+@media (max-width: 1024px) {
+  body #container #header #searchDiv #search, main #container #header #searchDiv #search {
+    width: 68%;
+    padding: 0 0 0 16%;
+  }
 }
 body #container #header #searchDiv #search::-moz-placeholder, main #container #header #searchDiv #search::-moz-placeholder {
   color: rgba(255, 255, 255, 0.5450980392);
@@ -116,6 +167,12 @@ body #container #header #searchDiv #btnSearch, main #container #header #searchDi
   color: #fff;
   background-color: transparent;
   transition: all 0.4s;
+}
+@media (max-width: 1024px) {
+  body #container #header #searchDiv #btnSearch, main #container #header #searchDiv #btnSearch {
+    width: 25%;
+    font-size: 0.6rem;
+  }
 }
 body #container #header #searchDiv #btnSearch:hover, main #container #header #searchDiv #btnSearch:hover {
   cursor: pointer;
@@ -134,6 +191,17 @@ body #container #main, main #container #main {
   justify-content: space-between;
   gap: 5%;
 }
+@media (max-width: 1024px) {
+  body #container #main, main #container #main {
+    gap: 2.5%;
+  }
+}
+@media (max-width: 726px) {
+  body #container #main, main #container #main {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
 body #container #main .card, main #container #main .card {
   position: relative;
   border: rgb(127, 176, 233) solid 2px;
@@ -143,12 +211,28 @@ body #container #main .card, main #container #main .card {
   box-shadow: 0px 10px 20px rgba(17, 17, 17, 0.6588235294);
   border-radius: 30px;
 }
+@media (max-width: 1024px) {
+  body #container #main .card, main #container #main .card {
+    padding: 2.5% 1.5%;
+  }
+}
+@media (max-width: 726px) {
+  body #container #main .card, main #container #main .card {
+    width: 80%;
+    padding: 2.5%;
+  }
+}
 body #container #main .card #card-top, main #container #main .card #card-top {
   margin-bottom: 80px;
   display: flex;
   gap: 16px;
   align-items: center;
   justify-content: space-between;
+}
+@media (max-width: 1024px) {
+  body #container #main .card #card-top, main #container #main .card #card-top {
+    margin-bottom: 30px;
+  }
 }
 body #container #main .card #card-top #top-left, main #container #main .card #card-top #top-left {
   width: 49%;
@@ -157,8 +241,24 @@ body #container #main .card #card-top #top-left, main #container #main .card #ca
 body #container #main .card #card-top #top-left .temp, main #container #main .card #card-top #top-left .temp {
   font-size: 3.2rem;
 }
+@media (max-width: 1024px) {
+  body #container #main .card #card-top #top-left .temp, main #container #main .card #card-top #top-left .temp {
+    font-size: 2.4rem;
+  }
+}
 body #container #main .card #card-top #top-left .feel-like, main #container #main .card #card-top #top-left .feel-like {
   font-size: 1.15rem;
+}
+@media (max-width: 1024px) {
+  body #container #main .card #card-top #top-left .feel-like, main #container #main .card #card-top #top-left .feel-like {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+}
+@media (max-width: 726px) {
+  body #container #main .card #card-top #top-left .feel-like, main #container #main .card #card-top #top-left .feel-like {
+    text-align: center;
+  }
 }
 body #container #main .card #card-top #top-right, main #container #main .card #card-top #top-right {
   width: 49%;
@@ -181,18 +281,46 @@ body #container #main .card #card-bottom .info-section, main #container #main .c
 body #container #main .card #card-bottom .info-section img, main #container #main .card #card-bottom .info-section img {
   width: 32px;
 }
+@media (max-width: 1024px) {
+  body #container #main .card #card-bottom .info-section img, main #container #main .card #card-bottom .info-section img {
+    width: 26px;
+  }
+}
 body #container #main .card #card-bottom .info-section h3, main #container #main .card #card-bottom .info-section h3 {
   font-weight: 700;
   font-size: 1.2rem;
 }
+@media (max-width: 1024px) {
+  body #container #main .card #card-bottom .info-section h3, main #container #main .card #card-bottom .info-section h3 {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
 body #container #main .card #card-bottom .info-section p, main #container #main .card #card-bottom .info-section p {
   font-size: 1.1rem;
+}
+@media (max-width: 1024px) {
+  body #container #main .card #card-bottom .info-section p, main #container #main .card #card-bottom .info-section p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
 }
 body #container #main .side, main #container #main .side {
   width: 25%;
 }
+@media (max-width: 726px) {
+  body #container #main .side, main #container #main .side {
+    padding: 4%;
+    width: 80%;
+  }
+}
 body #container #main .side #card-top, main #container #main .side #card-top {
   margin-bottom: 50px;
+}
+@media (max-width: 1024px) {
+  body #container #main .side #card-top, main #container #main .side #card-top {
+    margin-bottom: 30px;
+  }
 }
 body #container #main .side #card-top #top-left .temp, main #container #main .side #card-top #top-left .temp {
   font-size: 1.4rem;
@@ -203,11 +331,32 @@ body #container #main .side #card-top #top-left .feel-like, main #container #mai
 body #container #main .side #card-bottom .info-section img, main #container #main .side #card-bottom .info-section img {
   width: 22px;
 }
+@media (max-width: 1024px) {
+  body #container #main .side #card-bottom .info-section img, main #container #main .side #card-bottom .info-section img {
+    width: 19px;
+  }
+}
 body #container #main .side #card-bottom .info-section h3, main #container #main .side #card-bottom .info-section h3 {
   font-size: 1rem;
 }
+@media (max-width: 1024px) {
+  body #container #main .side #card-bottom .info-section h3, main #container #main .side #card-bottom .info-section h3 {
+    font-size: 0.7rem;
+    text-align: center;
+  }
+}
+@media (max-width: 726px) {
+  body #container #main .side #card-bottom .info-section h3, main #container #main .side #card-bottom .info-section h3 {
+    font-size: 0.85rem;
+  }
+}
 body #container #main .side #card-bottom .info-section p, main #container #main .side #card-bottom .info-section p {
   font-size: 0.7rem;
+}
+@media (max-width: 1024px) {
+  body #container #main .side #card-bottom .info-section p, main #container #main .side #card-bottom .info-section p {
+    text-align: center;
+  }
 }
 body #container #main .side::before, main #container #main .side::before {
   content: "";

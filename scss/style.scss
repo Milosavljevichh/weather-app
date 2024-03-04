@@ -1,3 +1,40 @@
+$breakpoints: (
+    "tablet": 1024px,
+    "phone": 726px,
+    "smaller-phone": 657px,
+    "fold": 281px,
+);
+
+@mixin projects-text {
+    @media (max-width: 1410px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: map-get($breakpoints, 'tablet')) {
+        @content;
+    }
+}
+
+@mixin phone {
+    @media (max-width: map-get($breakpoints, 'phone')) {
+        @content;
+    }
+}
+
+@mixin fold {
+    @media (max-width: map-get($breakpoints, 'fold')) {
+        @content;
+    }
+}
+
+@mixin smaller {
+    @media (max-width: map-get($breakpoints, 'smaller-phone')) {
+        @content;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,6 +54,9 @@ body,main {
     display: flex;
     align-items: center;
     justify-content: center;
+    @include phone {
+        height: auto;
+    }
     #loading{
         scale: 0.4;
         display: none;
@@ -39,6 +79,16 @@ body,main {
         flex-direction: column;
         justify-content: space-between;
         color: #F9F6EE;
+        @include tablet {
+            padding: 0 2.5%;
+            height: 50%;
+            justify-content: center;
+        }
+        @include phone {
+            margin: 30px 0;
+            height: fit-content;
+            border-radius: 30px;
+        }
         #header {
             margin: 6% 0 2.5% 0;
             height: 10%;
@@ -46,12 +96,21 @@ body,main {
             justify-content: space-between;
             align-items: flex-start;
             gap: 5%;
+            @include phone {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
             #icons {
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
                 gap: 16px;
                 width: 33%;
+                @include phone {
+                    width: 90%;
+                    justify-content: space-between;
+                }
                 #tempBtn {
                     width: 20%;
                     height: 2rem;
@@ -73,6 +132,10 @@ body,main {
             #location {
                 text-align: center;
                 width: 33%;
+                @include phone {
+                    width: 90%;
+                    justify-content: space-between;
+                }
                 #main-loc {
                     display: flex;
                     align-items: center;
@@ -87,6 +150,10 @@ body,main {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                @include phone {
+                    width: 90%;
+                    justify-content: space-between;
+                }
                 #search {
                     width: 75%;
                     height: 2rem;
@@ -100,6 +167,10 @@ body,main {
                     border: 3px #fff solid;
                     color: #fff;
                     background-color: transparent;
+                    @include tablet {
+                        width: 68%;
+                        padding: 0 0 0 16%;
+                    }
                 }
                 #search::placeholder {
                     color: #ffffff8b;
@@ -113,6 +184,10 @@ body,main {
                     color: #fff;
                     background-color: transparent;
                     transition: all 0.4s;
+                    @include tablet {
+                        width: 25%;
+                        font-size: 0.6rem;
+                    }
                 }
                 #btnSearch:hover {
                     cursor: pointer;
@@ -133,6 +208,13 @@ body,main {
             align-items: center;
             justify-content: space-between;
             gap: 5%;
+            @include tablet {
+                gap: 2.5%;
+            }
+            @include phone {
+                flex-direction: column;
+                gap: 30px;
+            }
             .card {
                 position: relative;
                 border: rgba(127,176,233,1) solid 2px;
@@ -141,20 +223,40 @@ body,main {
                 background: linear-gradient(133deg, rgba(127,176,233,1) 0%, rgba(56,118,191,1) 60%);
                 box-shadow: -0px 10px 20px #111111a8;
                 border-radius: 30px;
+                @include tablet {
+                    padding: 2.5% 1.5%;
+                }
+                @include phone {
+                    width: 80%;
+                    padding: 2.5%;
+                }
                 #card-top {
                     margin-bottom: 80px;
                     display: flex;
                     gap: 16px;
                     align-items: center;
                     justify-content: space-between;
+                    @include tablet {
+                        margin-bottom: 30px;
+                    }
                     #top-left {
                         width: 49%;
                         text-align: center;
                         .temp {
                             font-size: 3.2rem;
+                            @include tablet() {
+                                font-size: 2.4rem;
+                            }
                         }
                         .feel-like {
                             font-size: 1.15rem;
+                            @include tablet() {
+                                font-size: 0.95rem;
+                                text-align: left;
+                            }
+                            @include phone {
+                                text-align: center;
+                            }
                         }
                     }
                     #top-right {
@@ -176,21 +278,39 @@ body,main {
                         text-align: center;
                         img {
                             width: 32px;
+                            @include tablet {
+                                width: 26px;
+                            }
                         }
                         h3 {
                             font-weight: 700;
                             font-size: 1.2rem;
+                            @include tablet {
+                                font-size: 0.9rem;
+                                text-align: center;
+                            }
                         }
                         p {
                             font-size: 1.1rem;
+                            @include tablet {
+                                font-size: 0.9rem;
+                                text-align: center;
+                            }
                         }
                     }
                 }
             }
             .side {
                 width: 25%;
+                @include phone {
+                    padding: 4%;
+                    width: 80%;
+                }
                 #card-top {
                     margin-bottom: 50px;
+                    @include tablet() {
+                        margin-bottom: 30px;
+                    }
                     #top-left{
                         .temp {
                             font-size: 1.4rem;
@@ -204,12 +324,25 @@ body,main {
                     .info-section {
                         img {
                             width: 22px;
+                            @include tablet {
+                                width: 19px;
+                            }
                         }
                         h3 {
                             font-size: 1rem;
+                            @include tablet {
+                                font-size: 0.7rem;
+                                text-align: center;
+                            }
+                            @include phone {
+                                font-size: 0.85rem;
+                            }
                         }
                         p {
                             font-size: 0.7rem;
+                            @include tablet {
+                                text-align: center;
+                            }
                         }
                     }
                 }
