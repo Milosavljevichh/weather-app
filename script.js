@@ -1,9 +1,13 @@
-
 const searchBtn = document.getElementById('btnSearch');
 const searchInput = document.getElementById('search');
 const changeTempBtn = document.getElementById('tempBtn');
 const container = document.getElementById('container');
 const loading = document.getElementById('loading');
+const cityTitle = document.getElementById('city');
+const countryTitle = document.getElementById('country');
+const tempDisplays = document.querySelectorAll('.temp');
+const feelLikes = document.querySelectorAll('.feel-like');
+const winds = document.querySelectorAll('#wind');
 
 let fahrenheitTemperature = [];
 let celsiusTemperature = [];
@@ -53,9 +57,6 @@ let getYesterdayInfo = async()=>{
 };
 
 function displayLocation(city, country) {
-    let cityTitle = document.getElementById('city');
-    let countryTitle = document.getElementById('country');
-
     cityTitle.innerHTML = city;
     countryTitle.innerHTML = country;
 };
@@ -125,18 +126,23 @@ switch (code) {
 }
 };
 
+function handleError(){
+    searchInput.value = '';
+    searchInput.placeholder = 'No location found';
+};
+
 function displayYesterdayWeather(){
-    let card = document.getElementById('yesterdayCard');
+    const card = document.getElementById('yesterdayCard');
     getYesterdayInfo().then((response)=>{
         if (!response.error) {
             //display card info
-            let todayTempLabel = card.querySelector('.temp');
-            let todayFeelsLike = card.querySelector('.feel-like');
+            const todayTempLabel = card.querySelector('.temp');
+            const todayFeelsLike = card.querySelector('.feel-like');
     
-            let humidity = card.querySelector('#humidity');
-            let wind = card.querySelector('#wind');
-            let date = card.querySelector('#date');
-            let img = card.querySelector('#weather-img');
+            const humidity = card.querySelector('#humidity');
+            const wind = card.querySelector('#wind');
+            const date = card.querySelector('#date');
+            const img = card.querySelector('#weather-img');
         
             todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[0].day.avgtemp_c}°C`;   
             todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[0].day.maxtemp_c}°C`;
@@ -160,27 +166,26 @@ function displayYesterdayWeather(){
             };
 
         } else if(result.error){
-            searchInput.value = '';
-            searchInput.placeholder = 'No location found';
+            handleError();
         }
     })
 };
 
 function displayTodaysWeather(){
-    let card = document.getElementById('main-card');
+    const card = document.getElementById('main-card');
     fetchLocationInfo().then((result)=>{
 
         if (!result.error) {
             //display location info in header
             displayLocation(result.location.name, result.location.country);
             //display card info
-            let todayTempLabel = card.querySelector('.temp');
-            let todayFeelsLike = card.querySelector('.feel-like');
+            const todayTempLabel = card.querySelector('.temp');
+            const todayFeelsLike = card.querySelector('.feel-like');
     
-            let humidity = card.querySelector('#humidity');
-            let wind = card.querySelector('#wind');
-            let date = card.querySelector('#date');
-            let img = card.querySelector('#weather-img');
+            const humidity = card.querySelector('#humidity');
+            const wind = card.querySelector('#wind');
+            const date = card.querySelector('#date');
+            const img = card.querySelector('#weather-img');
         
             todayTempLabel.innerHTML = `${result.current.temp_c}°C`;
             todayFeelsLike.innerHTML = `Feels like ${result.current.feelslike_c}°C`;
@@ -203,25 +208,24 @@ function displayTodaysWeather(){
                 searchInput.placeholder = 'Search';
             }
         } else if(result.error){
-            searchInput.value = '';
-            searchInput.placeholder = 'No location found';
+            handleError();
         }
         
     })
 };
 
 function displayTomorrowsWeather(){
-    let card = document.getElementById('tomorrowCard');
+    const card = document.getElementById('tomorrowCard');
     getTomorrowsInfo().then((response)=>{
         if (!response.error) {
             //display card info
-            let todayTempLabel = card.querySelector('.temp');
-            let todayFeelsLike = card.querySelector('.feel-like');
+            const todayTempLabel = card.querySelector('.temp');
+            const todayFeelsLike = card.querySelector('.feel-like');
     
-            let humidity = card.querySelector('#humidity');
-            let wind = card.querySelector('#wind');
-            let date = card.querySelector('#date');
-            let img = card.querySelector('#weather-img');
+            const humidity = card.querySelector('#humidity');
+            const wind = card.querySelector('#wind');
+            const date = card.querySelector('#date');
+            const img = card.querySelector('#weather-img');
         
             todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[1].day.avgtemp_c}°C`;
             todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[1].day.maxtemp_c}°C`;
@@ -245,21 +249,18 @@ function displayTomorrowsWeather(){
             };
 
         } else if(result.error){
-            searchInput.value = '';
-            searchInput.placeholder = 'No location found';
+            handleError();
         }
     })
 };
 
 function emptyArrays() {
-    for (let i = 0; i <= fahrenheitTemperature.length+1; i++){
-        fahrenheitTemperature.pop();
-        celsiusTemperature.pop();
-        feelsLikeCelsius.pop();
-        feelsLikeFahrenheit.pop();
-        kph.pop();
-        mph.pop();
-    }
+    fahrenheitTemperature = [];
+    celsiusTemperature = [];
+    feelsLikeCelsius = [];
+    feelsLikeFahrenheit = [];
+    kph = [];
+    mph = [];
 };
 
 function fireSearchProcess(){
@@ -278,9 +279,6 @@ searchInput.addEventListener('search', ()=>{
 })
 
 changeTempBtn.addEventListener('click', ()=>{
-    let tempDisplays = document.querySelectorAll('.temp');
-    let feelLikes = document.querySelectorAll('.feel-like');
-    let winds = document.querySelectorAll('#wind');
     if(changeTempBtn.innerHTML === '°F') {
         if (fahrenheitTemperature.length !== 0) {
             changeTempBtn.innerHTML = '°C';
