@@ -30,7 +30,7 @@ let fetchLocationInfo = async()=> {
 
 let getTomorrowsInfo = async()=> {
     let searchValue = searchInput.value;
-    const response = await fetch (`http://api.weatherapi.com/v1/forecast.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&days=2&aqi=no&alerts=no`, {mode:'cors'})
+    const response = await fetch (`https://api.weatherapi.com/v1/forecast.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&days=2&aqi=no&alerts=no`, {mode:'cors'})
     const infoJson = await response.json();
     container.style.display = 'flex';
     loading.style.display = 'none';
@@ -51,7 +51,7 @@ let getYesterdayInfo = async()=>{
     output[1] = output[2];
     output[2] = day;
     output = output.join("-");
-    const response = await fetch (`http://api.weatherapi.com/v1/history.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&dt=${output}`, {mode:'cors'})
+    const response = await fetch (`https://api.weatherapi.com/v1/history.json?key=4a601696b76c403da0d130526242602&q=${searchValue}&dt=${output}`, {mode:'cors'})
     const infoJson = await response.json();
     return infoJson;
 };
@@ -131,44 +131,46 @@ function handleError(){
     searchInput.placeholder = 'No location found';
 };
 
-function displayYesterdayWeather(){
-    const card = document.getElementById('yesterdayCard');
-    getYesterdayInfo().then((response)=>{
-        if (!response.error) {
-            //display card info
-            const todayTempLabel = card.querySelector('.temp');
-            const todayFeelsLike = card.querySelector('.feel-like');
-    
-            const humidity = card.querySelector('#humidity');
-            const wind = card.querySelector('#wind');
-            const date = card.querySelector('#date');
-            const img = card.querySelector('#weather-img');
+function handleDisplay (data, cardId, index) {
+    const card = document.getElementById(cardId);
+    const { day, date } = data.forecast.forecastday[index];
+    if (!data.error) {
+        //display card info
+        const todayTempLabel = card.querySelector('.temp');
+        const todayFeelsLike = card.querySelector('.feel-like');
+
+        const humidity = card.querySelector('#humidity');
+        const wind = card.querySelector('#wind');
+        const dateDisplay = card.querySelector('#date');
+        const img = card.querySelector('#weather-img');
         
-            todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[0].day.avgtemp_c}°C`;   
-            todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[0].day.maxtemp_c}°C`;
-    
-            celsiusTemperature.push(response.forecast.forecastday[0].day.avgtemp_c);
-            fahrenheitTemperature.push(response.forecast.forecastday[0].day.avgtemp_f);
+        todayTempLabel.innerHTML = `Avg ${day.avgtemp_c}°C`;   
+        todayFeelsLike.innerHTML = `Max ${day.maxtemp_c}°C`;
 
-            feelsLikeFahrenheit.push(response.forecast.forecastday[0].day.maxtemp_f);
-            feelsLikeCelsius.push(response.forecast.forecastday[0].day.maxtemp_c);
+        celsiusTemperature.push(day.avgtemp_c);
+        fahrenheitTemperature.push(day.avgtemp_f);
 
-            humidity.innerHTML = response.forecast.forecastday[0].day.avghumidity + '%';
-            wind.innerHTML = response.forecast.forecastday[0].day.maxwind_kph    + 'Km/h';
-            date.innerHTML = (response.forecast.forecastday[0].date).substr(8, 2) + '.';
+        feelsLikeFahrenheit.push(day.maxtemp_f);
+        feelsLikeCelsius.push(day.maxtemp_c);
 
-            kph.push(response.forecast.forecastday[0].day.maxwind_kph);
-            mph.push(response.forecast.forecastday[0].day.maxwind_mph);
-    
-            handleWeatherIcon(img, response.forecast.forecastday[0].day.condition.code);
-            if (searchInput.placeholder === 'No location found') {
-                searchInput.placeholder = 'Search';
-            };
+        humidity.innerHTML = day.avghumidity + '%';
+        wind.innerHTML = day.maxwind_kph    + 'Km/h';
+        dateDisplay.innerHTML = (date).substr(8, 2) + '.';
 
-        } else if(result.error){
+        kph.push(day.maxwind_kph);
+        mph.push(day.maxwind_mph);
+
+        handleWeatherIcon(img, day.condition.code);
+        if (searchInput.placeholder === 'No location found') {
+            searchInput.placeholder = 'Search';
+        };
+    } else if(data.error){
             handleError();
         }
-    })
+}
+
+function displayYesterdayWeather(){
+    getYesterdayInfo().then((response)=>{handleDisplay(response, 'yesterdayCard', 0)})
 };
 
 function displayTodaysWeather(){
@@ -215,42 +217,8 @@ function displayTodaysWeather(){
 };
 
 function displayTomorrowsWeather(){
-    const card = document.getElementById('tomorrowCard');
     getTomorrowsInfo().then((response)=>{
-        if (!response.error) {
-            //display card info
-            const todayTempLabel = card.querySelector('.temp');
-            const todayFeelsLike = card.querySelector('.feel-like');
-    
-            const humidity = card.querySelector('#humidity');
-            const wind = card.querySelector('#wind');
-            const date = card.querySelector('#date');
-            const img = card.querySelector('#weather-img');
-        
-            todayTempLabel.innerHTML = `Avg ${response.forecast.forecastday[1].day.avgtemp_c}°C`;
-            todayFeelsLike.innerHTML = `Max ${response.forecast.forecastday[1].day.maxtemp_c}°C`;
-            
-            celsiusTemperature.push(response.forecast.forecastday[1].day.avgtemp_c);
-            fahrenheitTemperature.push(response.forecast.forecastday[1].day.avgtemp_f);
-
-            feelsLikeFahrenheit.push(response.forecast.forecastday[1].day.maxtemp_f);
-            feelsLikeCelsius.push(response.forecast.forecastday[1].day.maxtemp_c);
-    
-            humidity.innerHTML = response.forecast.forecastday[1].day.avghumidity + '%';
-            wind.innerHTML = response.forecast.forecastday[1].day.maxwind_kph    + 'Km/h';
-            date.innerHTML = (response.forecast.forecastday[1].date).substr(8, 2) + '.';
-
-            kph.push(response.forecast.forecastday[1].day.maxwind_kph);
-            mph.push(response.forecast.forecastday[1].day.maxwind_mph);
-    
-            handleWeatherIcon(img, response.forecast.forecastday[1].day.condition.code);
-            if (searchInput.placeholder === 'No location found') {
-                searchInput.placeholder = 'Search';
-            };
-
-        } else if(result.error){
-            handleError();
-        }
+        handleDisplay(response, 'tomorrowCard', 1)
     })
 };
 
